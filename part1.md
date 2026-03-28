@@ -95,6 +95,17 @@ Write the new function under the name `getDiscountedProductAveragePriceFP`.
 **Important**: the new function should have the same signature.
 
 **Note**: there are no tests for this question, and it will not be executed. The task here is to write the code in a functional way.
+```ts
+import * as R from 'ramda';
+type Product = {
+  name: string;
+  price: number;
+  discounted: boolean;
+};
+const discounted_products=(inventory: Product[]):Product[]=>  R.filter((x:Product):boolean=>x.discounted, inventory);
+const calculate= (inventory: Product[]): number=> inventory.length===0? 0: (R.reduce((acc:number, item:Product):number=> acc+ item.price, 0, inventory))/inventory.length;
+const getDiscountedProductAveragePriceFP = (inventory: Product[]): number =>calculate(discounted_products(inventory));
+```
 
 ### [18 points] Question 1.3
 
@@ -106,9 +117,15 @@ Guidelines:
 - Use generics where possible.
 - Avoid using `any`.
 
-1. [3 points] `(x, y) => x.some(y)`
+1. [3 points] ` (x, y) => x.some(y)`
+  `<T>(x: T[], y: (val: T) => boolean) => boolean`
 2. [3 points] `x => x.map(y => y * 2)`
+  `(x:[]number)=>[]number`
 3. [3 points] `(x, y) => x.filter(y)`
+    `<T>(x: T[], y:(val: T) => boolean)=>T[]`
 4. [3 points] `x => x.reduce((acc, cur) => acc + cur, 0)`
+  `(x: number[])=>number`
 5. [3 points] `(x, y) => x ? y[0] : y[1]`
+  `<T>(x:unknown, y:T[])=>T`
 6. [3 points] `(f,g) => x => f(g(x+1))`
+  `<T,R>(f: (item:T)=>R, g:(val: number)=>T)=> (x:number)=>R`
