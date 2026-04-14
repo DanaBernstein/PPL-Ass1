@@ -80,3 +80,74 @@ describe("Assignment 1 Part 2", () => {
     });
 });
 
+/* --- MY TESTS --- */
+
+describe("My Additional Tests", () => {
+    
+    describe("countVowels - Edge Cases", () => {
+        it("should return 0 for string with no vowels", () => {
+            expect(countVowels("bcdfghjklmnpqrstvwxyz")).toEqual(0);
+        });
+        it("should count vowels even if they are mixed with numbers and symbols", () => {
+            expect(countVowels("123!@# AEIOU")).toEqual(5);
+        });
+        it("should handle strings with only spaces", () => {
+            expect(countVowels("     ")).toEqual(0);
+        });
+    });
+
+    describe("isPalindrome - Complex Cases", () => {
+        it("should handle long palindromes with lots of punctuation", () => {
+            expect(isPalindrome("Eva, can I see bees in a cave?")).toBe(true);
+        });
+        it("should handle palindromes that are purely numeric but with spaces", () => {
+            expect(isPalindrome("123 21")).toBe(true);
+        });
+        it("should return false for strings that are almost palindromes", () => {
+            expect(isPalindrome("abab")).toBe(false);
+        });
+    });
+
+    describe("treeToSentence - Complex Trees", () => {
+        it("should handle a deep single-branch tree (vertical)", () => {
+            const deepTree: WordTree = {
+                root: "I",
+                children: [{
+                    root: "am",
+                    children: [{
+                        root: "deep",
+                        children: []
+                    }]
+                }]
+            };
+            expect(treeToSentence(deepTree)).toBe("I am deep");
+        });
+
+        it("should handle a very wide tree (star shape)", () => {
+            const wideTree: WordTree = {
+                root: "Everything",
+                children: [
+                    { root: "is", children: [] },
+                    { root: "connected", children: [] },
+                    { root: "to", children: [] },
+                    { root: "this", children: [] }
+                ]
+            };
+            expect(treeToSentence(wideTree)).toBe("Everything is connected to this");
+        });
+
+        it("should ignore multiple empty nodes scattered in the tree", () => {
+            const messyTree: WordTree = {
+                root: "Start",
+                children: [
+                    { root: "", children: [{ root: "Middle", children: [] }] },
+                    { root: "", children: [] },
+                    { root: "End", children: [] }
+                ]
+            };
+            expect(treeToSentence(messyTree)).toBe("Start Middle End");
+        });
+    });
+});
+
+/* --- END OF MY TESTS --- */
