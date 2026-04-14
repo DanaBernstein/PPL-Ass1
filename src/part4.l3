@@ -1,5 +1,3 @@
-#lang racket
-
 ; Signature: last-item(lst)
 ; Type: [List(T1) => T1]
 ; Purpose: return last item from lst.
